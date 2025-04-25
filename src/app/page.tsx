@@ -57,12 +57,12 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-2xl font-bold mb-4">PhotoPoet</h1>
-      <Card className="w-full max-w-md space-y-4 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-background">
+      <h1 className="text-2xl font-bold mb-4 text-foreground">PhotoPoet</h1>
+      <Card className="w-full max-w-md space-y-4 p-4 bg-card text-foreground shadow-md rounded-lg">
         <CardHeader>
-          <CardTitle>Upload Image</CardTitle>
-          <CardDescription>Get a poem generated from your image.</CardDescription>
+          <CardTitle className="text-xl font-semibold">Upload Image</CardTitle>
+          <CardDescription className="text-muted-foreground">Get a poem generated from your image.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Input
@@ -70,7 +70,7 @@ export default function Home() {
             accept="image/*"
             onChange={handleImageUpload}
             disabled={loading}
-            className="mb-2"
+            className="mb-2 rounded-md"
           />
           {image ? (
             <img src={image} alt="Uploaded" className="rounded-md object-cover w-full h-48" />
@@ -88,14 +88,15 @@ export default function Home() {
             value={poemStyle}
             onChange={(e) => setPoemStyle(e.target.value)}
             disabled={loading}
+            className="rounded-md"
           />
-          <Button onClick={generatePoem} disabled={loading} className="w-full bg-warm-coral hover:bg-coral-600 text-white">
+          <Button onClick={generatePoem} disabled={loading} className="w-full bg-accent hover:bg-accent-600 text-accent-foreground rounded-md">
             {loading ? "Generating..." : "Generate Poem"}
           </Button>
           {poem && (
             <div className="mt-4">
               <h2 className="text-xl font-semibold mb-2">Generated Poem</h2>
-              <Card className="shadow-md rounded-md">
+              <Card className="shadow-md rounded-md bg-card text-foreground">
                 <CardContent>
                   <p className="text-gray-800">{poem}</p>
                 </CardContent>
