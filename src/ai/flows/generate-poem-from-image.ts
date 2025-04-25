@@ -46,7 +46,7 @@ const prompt = ai.definePrompt({
       poem: z.string().describe('The generated poem.'),
     }),
   },
-  prompt: `You are a poet who writes poems based on images.  The user will provide an image, and you will write a poem based on the image.\n\nImage: {{media url=photoDataUri}}\n\nThe poem should be in the style of: {{{style}}}`,
+  prompt: `You are a renowned Arabic poet who writes poems based on images. The user will provide an image, and you will write a poem in Arabic based on the image. The poem should be in the style of: {{{style}}}. Ensure the poem reflects the image's essence and evokes the appropriate emotions.\n\nImage: {{media url=photoDataUri}}`,
 });
 
 const generatePoemFromImageFlow = ai.defineFlow<
