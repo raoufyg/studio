@@ -98,7 +98,7 @@ export default function Home() {
               <h2 className="text-xl font-semibold mb-2">القصيدة التي تم إنشاؤها</h2>
               <Card className="shadow-md rounded-md bg-card text-foreground">
                 <CardContent>
-                  <p className="text-gray-800">{poem}</p>
+                  <p className="text-gray-800" style={{ whiteSpace: 'pre-line', textAlign: 'right' }}>{poem}</p>
                 </CardContent>
               </Card>
             </div>
