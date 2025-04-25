@@ -13,7 +13,7 @@ import { Upload } from "lucide-react";
 export default function Home() {
   const [image, setImage] = useState<string | null>(null);
   const [poem, setPoem] = useState<string | null>(null);
-  const [poemStyle, setPoemStyle] = useState<string>("Romantic");
+  const [poemStyle, setPoemStyle] = useState<string>("رومانسي");
   const [loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
 
@@ -31,7 +31,7 @@ export default function Home() {
   const generatePoem = async () => {
     if (!image) {
       toast({
-        title: "Please upload an image first.",
+        title: "الرجاء تحميل صورة أولاً.",
         variant: "destructive",
       });
       return;
@@ -45,10 +45,10 @@ export default function Home() {
       });
       setPoem(result.poem);
     } catch (error: any) {
-      console.error("Poem generation failed:", error);
+      console.error("فشل إنشاء القصيدة:", error);
       toast({
-        title: "Poem generation failed.",
-        description: error.message || "Something went wrong.",
+        title: "فشل إنشاء القصيدة.",
+        description: error.message || "حدث خطأ ما.",
         variant: "destructive",
       });
     } finally {
@@ -57,12 +57,12 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-background">
-      <h1 className="text-2xl font-bold mb-4 text-foreground">PhotoPoet</h1>
+    <div dir="rtl" className="flex flex-col items-center justify-center min-h-screen py-2 bg-background">
+      <h1 className="text-2xl font-bold mb-4 text-foreground">شاعر الصورة</h1>
       <Card className="w-full max-w-md space-y-4 p-4 bg-card text-foreground shadow-md rounded-lg">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold">Upload Image</CardTitle>
-          <CardDescription className="text-muted-foreground">Get a poem generated from your image.</CardDescription>
+          <CardTitle className="text-xl font-semibold">تحميل الصورة</CardTitle>
+          <CardDescription className="text-muted-foreground">احصل على قصيدة تم إنشاؤها من صورتك.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Input
@@ -73,7 +73,7 @@ export default function Home() {
             className="mb-2 rounded-md"
           />
           {image ? (
-            <img src={image} alt="Uploaded" className="rounded-md object-cover w-full h-48" />
+            <img src={image} alt="تم التحميل" className="rounded-md object-cover w-full h-48" />
           ) : (
             <div className="flex items-center justify-center w-full h-48 rounded-md bg-secondary">
               {loading ? (
@@ -84,18 +84,18 @@ export default function Home() {
             </div>
           )}
           <Textarea
-            placeholder="Enter Poem Style"
+            placeholder="أدخل نمط القصيدة"
             value={poemStyle}
             onChange={(e) => setPoemStyle(e.target.value)}
             disabled={loading}
             className="rounded-md"
           />
           <Button onClick={generatePoem} disabled={loading} className="w-full bg-accent hover:bg-accent-600 text-accent-foreground rounded-md">
-            {loading ? "Generating..." : "Generate Poem"}
+            {loading ? "جاري الإنشاء..." : "إنشاء قصيدة"}
           </Button>
           {poem && (
             <div className="mt-4">
-              <h2 className="text-xl font-semibold mb-2">Generated Poem</h2>
+              <h2 className="text-xl font-semibold mb-2">القصيدة التي تم إنشاؤها</h2>
               <Card className="shadow-md rounded-md bg-card text-foreground">
                 <CardContent>
                   <p className="text-gray-800">{poem}</p>

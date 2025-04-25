@@ -4,7 +4,7 @@
  *
  * - generatePoemFromImage - A function that generates a poem from an image.
  * - GeneratePoemFromImageInput - The input type for the generatePoemFromImage function.
- * - GeneratePoemFromImageOutput - The return type for the generatePoemFromImage function.
+ * - GeneratePoemFromImageOutput - The return type for the GeneratePoemFromImage function.
  */
 
 import {ai} from '@/ai/ai-instance';
@@ -46,7 +46,7 @@ const prompt = ai.definePrompt({
       poem: z.string().describe('The generated poem.'),
     }),
   },
-  prompt: `You are a renowned Arabic poet who writes poems based on images. The user will provide an image, and you will write a poem in Arabic based on the image. The poem should be in the style of: {{{style}}}. Ensure the poem reflects the image's essence and evokes the appropriate emotions.\n\nImage: {{media url=photoDataUri}}`,
+  prompt: `أنت شاعر عربي مشهور يكتب قصائد بناءً على الصور. سيوفر المستخدم صورة، وستكتب قصيدة باللغة العربية بناءً على الصورة. يجب أن تكون القصيدة على غرار: {{{style}}}. تأكد من أن القصيدة تعكس جوهر الصورة وتثير المشاعر المناسبة.\n\nImage: {{media url=photoDataUri}}`,
 });
 
 const generatePoemFromImageFlow = ai.defineFlow<
