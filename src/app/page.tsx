@@ -13,7 +13,7 @@ import { Upload } from "lucide-react";
 export default function Home() {
   const [image, setImage] = useState<string | null>(null);
   const [poem, setPoem] = useState<string | null>(null);
-  const [poemStyle, setPoemStyle] = useState<string>("رومانسي");
+  const [poemStyle, setPoemStyle] = useState<string>("غزل"); // Example style: Ghazal
   const [loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
 
@@ -62,7 +62,7 @@ export default function Home() {
       <Card className="w-full max-w-md space-y-4 p-4 bg-card text-foreground shadow-md rounded-lg">
         <CardHeader>
           <CardTitle className="text-xl font-semibold">تحميل الصورة</CardTitle>
-          <CardDescription className="text-muted-foreground">احصل على قصيدة تم إنشاؤها من صورتك.</CardDescription>
+          <CardDescription className="text-muted-foreground">احصل على قصيدة مستوحاة من صورتك.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Input
@@ -84,7 +84,7 @@ export default function Home() {
             </div>
           )}
           <Textarea
-            placeholder="أدخل نمط القصيدة"
+            placeholder="أدخل نمط القصيدة (مثال: غزل, مدح, رثاء)"
             value={poemStyle}
             onChange={(e) => setPoemStyle(e.target.value)}
             disabled={loading}

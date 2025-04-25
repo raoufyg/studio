@@ -16,7 +16,7 @@ const GeneratePoemFromImageInputSchema = z.object({
     .describe(
       "A photo, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
     ),
-  style: z.string().describe('The style of poem to generate.'),
+  style: z.string().describe('The style of poem to generate. E.g., غزل, مدح, رثاء'),
 });
 export type GeneratePoemFromImageInput = z.infer<typeof GeneratePoemFromImageInputSchema>;
 
@@ -38,7 +38,7 @@ const prompt = ai.definePrompt({
         .describe(
           "A photo, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
         ),
-      style: z.string().describe('The style of poem to generate.'),
+      style: z.string().describe('The style of poem to generate. E.g., غزل, مدح, رثاء'),
     }),
   },
   output: {
@@ -46,7 +46,7 @@ const prompt = ai.definePrompt({
       poem: z.string().describe('The generated poem.'),
     }),
   },
-  prompt: `أنت شاعر عربي مشهور يكتب قصائد بناءً على الصور. سيوفر المستخدم صورة، وستكتب قصيدة باللغة العربية بناءً على الصورة. يجب أن تكون القصيدة على غرار: {{{style}}}. تأكد من أن القصيدة تعكس جوهر الصورة وتثير المشاعر المناسبة.\n\nImage: {{media url=photoDataUri}}`,
+  prompt: `أنت خبير في الشعر العربي الكلاسيكي. بناءً على الصورة المعطاة، قم بإنشاء قصيدة باللغة العربية الفصحى تعكس أسلوب الشعر {{$style}}. يجب أن تكون القصيدة متناسبة مع الصورة من حيث الموضوع والشعور، وأن تتبع القواعد التقليدية للشعر العربي من حيث الوزن والقافية.\n\nImage: {{media url=photoDataUri}}`,
 });
 
 const generatePoemFromImageFlow = ai.defineFlow<
