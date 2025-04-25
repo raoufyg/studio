@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { generatePoemFromImage } from "@/ai/flows/generate-poem-from-image";
@@ -10,12 +10,27 @@ import { useToast } from "@/hooks/use-toast";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Upload } from "lucide-react";
 
+// Dummy data for Arabic poems (replace with actual data source)
+const poemStyles = [
+  "غزل",
+  "مدح",
+  "رثاء",
+  "هجاء",
+  "وصف",
+  "حكمة",
+  "تصوف",
+];
+
 export default function Home() {
   const [image, setImage] = useState<string | null>(null);
   const [poem, setPoem] = useState<string | null>(null);
-  const [poemStyle, setPoemStyle] = useState<string>("غزل"); // Example style: Ghazal
+  const [poemStyle, setPoemStyle] = useState<string>(poemStyles[0]);
   const [loading, setLoading] = useState<boolean>(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    document.documentElement.setAttribute("dir", "rtl");
+  }, []);
 
   const handleImageUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -83,13 +98,18 @@ export default function Home() {
               )}
             </div>
           )}
-          <Textarea
-            placeholder="أدخل نمط القصيدة (مثال: غزل, مدح, رثاء)"
+          <select
             value={poemStyle}
             onChange={(e) => setPoemStyle(e.target.value)}
             disabled={loading}
-            className="rounded-md"
-          />
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {poemStyles.map((style) => (
+              <option key={style} value={style}>
+                {style}
+              </option>
+            ))}
+          </select>
           <Button onClick={generatePoem} disabled={loading} className="w-full bg-accent hover:bg-accent-600 text-accent-foreground rounded-md">
             {loading ? "جاري الإنشاء..." : "إنشاء قصيدة"}
           </Button>
